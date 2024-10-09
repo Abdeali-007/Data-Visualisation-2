@@ -14,7 +14,7 @@
       "as": "upload_bracket"
     }
   ],
-  "mark": {"type": "bar", "tooltip": true, "width": {"band": 1.12}},
+  "mark": {"type": "bar", "tooltip": true, "color": "red", "width": {"band": 1.12}},
   "encoding": {
     "x": {
       "field": "upload_bracket",
