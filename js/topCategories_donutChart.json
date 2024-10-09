@@ -1,0 +1,63 @@
+  {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": "container",
+  "description": "Donut chart showing the distribution of YouTube categories among the top 955 channels, with smaller categories grouped into 'Others'",
+  "data": {
+    "url": "https://raw.githubusercontent.com/Abdeali-007/Data-Visualisation-2/main/datasets/Global%20YouTube%20Statistics.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {"filter": "datum.category != null && datum.category != 'nan'"},
+    {"aggregate": [{"op": "count", "as": "count"}], "groupby": ["category"]},
+    {
+      "window": [{"op": "rank", "as": "rank"}],
+      "sort": [{"field": "count", "order": "descending"}]
+    },
+    {
+      "calculate": "datum.rank > category_limit ? 'Others' : datum.category",
+      "as": "category_grouped"
+    },
+    {
+      "aggregate": [{"op": "sum", "field": "count", "as": "count"}],
+      "groupby": ["category_grouped"]
+    },
+    {
+      "window": [{"op": "rank", "as": "order_rank"}],
+      "sort": [{"field": "count", "order": "descending"}]
+    }
+  ],
+  "params": [
+    {
+      "name": "category_limit",
+      "value": 7,
+      "bind": {
+        "input": "range",
+        "min": 1,
+        "max": 18,
+        "step": 1,
+        "name": "Number of Categories to Display: "
+      }
+    }
+  ],
+  "mark": {"type": "arc", "innerRadius": 150},
+  "encoding": {
+    "theta": {"field": "count", "type": "quantitative"},
+    "color": {
+      "field": "category_grouped",
+      "type": "nominal",
+      "legend": {"title": "Category"}
+    },
+    "order": {
+      "field": "order_rank",
+      "type": "quantitative",
+      "sort": "descending"
+    },
+    "tooltip": [
+      {"field": "category_grouped", "title": "Category"},
+      {"field": "count", "title": "Channel Count"}
+    ]
+  },
+  "view": {"stroke": null},
+  "config": {}
+}
