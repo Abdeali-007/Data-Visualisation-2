@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Statistics Visualization</title>
+
+    <!-- Import Vega and Vega-Lite -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+    <!-- Styling to give space and prevent squashing -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>YouTube Statistics Overview</h1>
+    <p>This analysis of YouTube statistics provides insights into the platform's top categories, channels, upload frequencies, earnings, and user activity.</p>
+
+    <!-- Distribution of YouTube Categories -->
+    <h2>Distribution of YouTube Categories</h2>
+    <p>The donut chart below illustrates the distribution of categories among the top 955 YouTube channels, grouping smaller categories into an 'Others' section.</p>
+    <div id="category-donut-chart" class="chart-container"></div>
+
+    <!-- Top YouTube Channels -->
+    <h2>Top YouTube Channels</h2>
+    <p>The bar chart below highlights the top YouTube channels by subscriber count. Use the filter to control the number of channels displayed.</p>
+    <div id="top-channels-bar-chart" class="chart-container"></div>
+
+    <!-- Global Distribution of Subscribers -->
+    <h2>Global Distribution of Subscribers</h2>
+    <p>The map below shows the global distribution of YouTube subscribers, using proportional symbols to represent the number of subscribers per region.</p>
+    <div id="global-subscribers-map" class="chart-container"></div>
+
+    <!-- Top Earning YouTubers -->
+    <h2>Top Earning YouTubers in 2023</h2>
+    <p>This lollipop chart shows the top-earning YouTubers and their revenue in 2023.</p>
+    <div id="top-earning-lollipop-chart" class="chart-container"></div>
+
+    <!-- Upload Frequency -->
+    <h2>Upload Frequency of Top Channels</h2>
+    <p>The histogram below displays the distribution of upload frequencies among top YouTube channels.</p>
+    <div id="upload-freq-histogram" class="chart-container"></div>
+
+    <!-- YouTube Monthly Active Users -->
+    <h2>YouTube Monthly Active Users (2010-2024)</h2>
+    <p>This line graph tracks the number of YouTube monthly active users from 2010 to 2024.</p>
+    <div id="active-users-line-graph" class="chart-container"></div>
+
+    <!-- Embedding the charts using Vega-Lite JSON files -->
+    <script>
+        // Embed donut chart
+        vegaEmbed('#category-donut-chart', 'js/topCategories_donutChart.json').catch(console.warn);
+
+        // Embed bar chart
+        vegaEmbed('#top-channels-bar-chart', 'js/topChannels_barGraph.json').catch(console.warn);
+
+        // Embed proportional symbol map
+        vegaEmbed('#global-subscribers-map', 'js/topCount_subs_map.json').catch(console.warn);
+
+        // Embed lollipop chart
+        vegaEmbed('#top-earning-lollipop-chart', 'js/topEarning_lollipopChart.json').catch(console.warn);
+
+        // Embed upload frequency histogram
+        vegaEmbed('#upload-freq-histogram', 'js/uploadFreq_histogram.json').catch(console.warn);
+
+        // Embed line graph for monthly active users
+        vegaEmbed('#active-users-line-graph', 'js/activeUsers_lineGraph.json').catch(console.warn);
+
+        // You can also add JavaScript to handle your sliders if needed
+    </script>
+
+</body>
+</html>
