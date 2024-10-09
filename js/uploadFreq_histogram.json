@@ -1,0 +1,37 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "A histogram showing the distribution of upload frequencies among top YouTube channels.",
+  "width": "container",
+  "height": "container",
+  "data": {
+    "url": "https://raw.githubusercontent.com/Abdeali-007/Data-Visualisation-2/main/datasets/Global%20YouTube%20Statistics.csv",
+    "format": {"type": "csv"}
+  },
+  "transform": [
+    {"filter": "datum.uploads != null && !isNaN(datum.uploads)"},
+    {
+      "calculate": "datum.uploads <= 500 ? '0-500' : datum.uploads <= 1000 ? '501-1000' : datum.uploads <= 5000 ? '1001-5000' : datum.uploads <= 10000 ? '5001-10000' : '10001+'",
+      "as": "upload_bracket"
+    }
+  ],
+  "mark": {"type": "bar", "tooltip": true, "width": {"band": 1.12}},
+  "encoding": {
+    "x": {
+      "field": "upload_bracket",
+      "type": "nominal",
+      "title": "Upload Frequency (number of uploads)",
+      "sort": ["0-500", "501-1000", "1001-5000", "5001-10000", "10001+"]
+    },
+    "y": {
+      "aggregate": "count",
+      "type": "quantitative",
+      "title": "Number of Channels",
+      "axis": {"tickMinStep": 1, "grid": false}
+    },
+    "tooltip": [
+      {"field": "upload_bracket", "title": "Upload Frequency"},
+      {"aggregate": "count", "title": "Number of Channels"}
+    ]
+  },
+  "config": {"axisX": {"labelAngle": 0, "labelAlign": "center"}}
+}
