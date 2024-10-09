@@ -1,6 +1,5 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Trend of YouTube Monthly Active Users (in billions) Over the Years",
   "description": "A line graph showing the number of YouTube monthly active users from 2010 to 2024.",
   "width": "container",
   "height": "container",
