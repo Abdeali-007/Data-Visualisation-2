@@ -1,0 +1,34 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Trend of YouTube Monthly Active Users (in billions) Over the Years",
+  "description": "A line graph showing the number of YouTube monthly active users from 2010 to 2024.",
+  "width": "container",
+  "height": "container",
+  "data": {
+    "url": "https://raw.githubusercontent.com/Abdeali-007/Data-Visualisation-2/main/datasets/Youtube%20Users%202010-2024.csv",
+    "format": {"type": "csv"}
+  },
+  "mark": {"type": "line", "color": "red"},
+  "encoding": {
+    "x": {
+      "field": "Year",
+      "type": "temporal",
+      "title": "Year",
+      "axis": {"format": "%Y"}
+    },
+    "y": {
+      "field": "YouTube Monthly Active Users (in billions)",
+      "type": "quantitative",
+      "title": "Monthly Active Users (in billions)"
+    },
+    "tooltip": [
+      {"field": "Year", "title": "Year", "type": "temporal"},
+      {
+        "field": "YouTube Monthly Active Users (in billions)",
+        "title": "Monthly Active Users (in billions)",
+        "type": "quantitative"
+      }
+    ]
+  },
+  "config": {}
+}
