@@ -1,20 +1,35 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "A lollipop chart showing the top earning YouTubers and their revenue in 2023.",
-  "width": "container",
-  "height": "container",
+  "height": 600,
+  "width": 1500,
   "data": {
     "url": "https://raw.githubusercontent.com/Abdeali-007/Data-Visualisation-2/main/datasets/Top%20Earning%20Youtubers%202023.csv",
-    "format": {"type": "csv"}
+    "format": {
+      "type": "csv"
+    }
   },
   "transform": [
     {
       "filter": "datum['Revenue ($mm)'] != null && !isNaN(datum['Revenue ($mm)'])"
     },
-    {"calculate": "datum['Revenue ($mm)'] * 1000000", "as": "Revenue (USD)"},
     {
-      "window": [{"op": "rank", "as": "rank"}],
-      "sort": [{"field": "Revenue (USD)", "order": "descending"}]
+      "calculate": "datum['Revenue ($mm)'] * 1000000",
+      "as": "Revenue (USD)"
+    },
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "Revenue (USD)",
+          "order": "descending"
+        }
+      ]
     }
   ],
   "layer": [
@@ -25,28 +40,50 @@
           "field": "Channels",
           "type": "nominal",
           "title": "YouTube Channel",
-          "sort": {"field": "Revenue (USD)", "order": "descending"},
-          "axis": {"labelAngle": -45}
+          "sort": {
+            "field": "Revenue (USD)",
+            "order": "descending"
+          },
+          "axis": {
+            "labelAngle": -45
+          }
         },
         "y": {
           "field": "Revenue (USD)",
           "type": "quantitative",
           "title": "Revenue (in USD)",
-          "axis": {"format": "$,.2s"}
+          "axis": {
+            "format": "$,.2s",
+            "grid": false
+          }
         }
       }
     },
     {
-      "mark": {"type": "circle", "tooltip": true, "size": 200, "color": "red"},
+      "mark": {
+        "type": "circle",
+        "tooltip": true,
+        "size": 300,
+        "color": "#ff000099"
+      },
       "encoding": {
         "x": {
           "field": "Channels",
           "type": "nominal",
-          "sort": {"field": "Revenue (USD)", "order": "descending"}
+          "sort": {
+            "field": "Revenue (USD)",
+            "order": "descending"
+          }
         },
-        "y": {"field": "Revenue (USD)", "type": "quantitative"},
+        "y": {
+          "field": "Revenue (USD)",
+          "type": "quantitative"
+        },
         "tooltip": [
-          {"field": "Channels", "title": "Channel"},
+          {
+            "field": "Channels",
+            "title": "Channel"
+          },
           {
             "field": "Revenue (USD)",
             "title": "Revenue (USD)",
@@ -56,5 +93,7 @@
       }
     }
   ],
-  "config": {}
+  "config": {
+    "background": "#f9f9f9"
+  }
 }

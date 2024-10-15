@@ -1,37 +1,164 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "A histogram showing the distribution of upload frequencies among top YouTube channels.",
-  "width": "container",
-  "height": "container",
+  "height": 600,
+  "width": 1500,
   "data": {
     "url": "https://raw.githubusercontent.com/Abdeali-007/Data-Visualisation-2/main/datasets/Global%20YouTube%20Statistics.csv",
-    "format": {"type": "csv"}
+    "format": {
+      "type": "csv"
+    }
   },
   "transform": [
-    {"filter": "datum.uploads != null && !isNaN(datum.uploads)"},
     {
-      "calculate": "datum.uploads <= 500 ? '0-500' : datum.uploads <= 1000 ? '501-1000' : datum.uploads <= 5000 ? '1001-5000' : datum.uploads <= 10000 ? '5001-10000' : '10001+'",
+      "filter": "datum.uploads != null && !isNaN(datum.uploads) && datum.uploads <= 3500"
+    },
+    {
+      "calculate": "datum.uploads <= 500 ? '0-500' : datum.uploads <= 1000 ? '501-1000' : datum.uploads <= 1500 ? '1001-1500' : datum.uploads <= 2000 ? '1501-2000' : datum.uploads <= 2500 ? '2001-2500' : datum.uploads <= 3000 ? '2501-3000' : '3001-3500'",
       "as": "upload_bracket"
     }
   ],
-  "mark": {"type": "bar", "tooltip": true, "color": "red", "width": {"band": 1.12}},
-  "encoding": {
-    "x": {
-      "field": "upload_bracket",
-      "type": "nominal",
-      "title": "Upload Frequency (number of uploads)",
-      "sort": ["0-500", "501-1000", "1001-5000", "5001-10000", "10001+"]
+  "layer": [
+    {
+      "mark": {
+        "type": "bar",
+        "tooltip": true,
+        "color": "#ff000099",
+        "width": {
+          "band": 1.11
+        }
+      },
+      "encoding": {
+        "x": {
+          "field": "upload_bracket",
+          "type": "nominal",
+          "title": "Upload Frequency (number of uploads)",
+          "sort": [
+            "0-500",
+            "501-1000",
+            "1001-1500",
+            "1501-2000",
+            "2001-2500",
+            "2501-3000",
+            "3001-3500"
+          ]
+        },
+        "y": {
+          "aggregate": "count",
+          "type": "quantitative",
+          "title": "Number of Channels",
+          "axis": {
+            "tickMinStep": 1,
+            "grid": false
+          }
+        },
+        "tooltip": [
+          {
+            "field": "upload_bracket",
+            "type": "nominal",
+            "title": "Upload Frequency"
+          },
+          {
+            "aggregate": "count",
+            "type": "quantitative",
+            "title": "Number of Channels"
+          }
+        ]
+      }
     },
-    "y": {
-      "aggregate": "count",
-      "type": "quantitative",
-      "title": "Number of Channels",
-      "axis": {"tickMinStep": 1, "grid": false}
+    {
+      "mark": {
+        "type": "rect",
+        "fill": "#f0f0f0",
+        "stroke": "#000",
+        "strokeWidth": 1,
+        "cornerRadius": 5,
+        "x": 400,
+        "y": 60,
+        "width": 320,
+        "height": 25
+      },
+      "encoding": {}
     },
-    "tooltip": [
-      {"field": "upload_bracket", "title": "Upload Frequency"},
-      {"aggregate": "count", "title": "Number of Channels"}
-    ]
-  },
-  "config": {"axisX": {"labelAngle": 0, "labelAlign": "center"}}
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 260,
+        "y": 60,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": "Majority of top YouTube channels have 0-500 uploads."
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rect",
+        "fill": "#f0f0f0",
+        "stroke": "#000",
+        "strokeWidth": 1,
+        "cornerRadius": 5,
+        "x": 800,
+        "y": 300,
+        "width": 450,
+        "height": 25
+      },
+      "encoding": {}
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 600,
+        "y": 300,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": "Overall decrease in the number of channels with higher upload frequencies."
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rect",
+        "fill": "#f0f0f0",
+        "stroke": "#000",
+        "strokeWidth": 1,
+        "cornerRadius": 5,
+        "x": 1235,
+        "y": 500,
+        "width": 500,
+        "height": 25
+      },
+      "encoding": {}
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 1000,
+        "y": 500,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": "Few channels exceed 3000 uploads, reflecting the rarity of high-volume content creators."
+        }
+      }
+    }
+  ],
+  "config": {
+    "axisX": {
+      "labelAngle": 0,
+      "labelAlign": "center"
+    },
+    "background": "#f9f9f9"
+  }
 }

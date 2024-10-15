@@ -1,75 +1,399 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Statistics Visualization</title>
+    <!-- Import pure.css -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css"
+        integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/grids-responsive-min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/base-min.css">
 
-    <!-- Import Vega and Vega-Lite -->
-    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+    <!-- Import Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500&display=swap%27" rel="stylesheet">
 
-    <!-- Styling to give space and prevent squashing -->
+    <!-- Import Custom CSS stylesheet -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Import Vega-Lite -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5.25.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.15.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.22.2"></script>
+
+    <!-- Meta and title -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube 2023 Unwrapped - Data Visualization</title>
+
+    <!-- Import charts -->
+    <script src="js/chartsEmbed.js"></script>
 </head>
+
 <body>
+    <!-- Navigation bar -->
+    <div class="header">
+        <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+            <a class="pure-menu-heading" href="#"><b>YouTube 2023 Unwrapped</b></a>
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item"><a href="#categories" class="pure-menu-link">Categories</a></li>
+                <li class="pure-menu-item"><a href="#top-channels" class="pure-menu-link">Top Channels</a></li>
+                <li class="pure-menu-item"><a href="#global-reach" class="pure-menu-link">Global Reach</a></li>
+                <li class="pure-menu-item"><a href="#top-earning" class="pure-menu-link">Top Earning</a></li>
+                <li class="pure-menu-item"><a href="#upload-frequency" class="pure-menu-link">Upload Frequency</a></li>
+                <li class="pure-menu-item"><a href="#active-users" class="pure-menu-link">Active Users</a></li>
+        </div>
+    </div>
 
-    <h1>YouTube Statistics Overview</h1>
-    <p>This analysis of YouTube statistics provides insights into the platform's top categories, channels, upload frequencies, earnings, and user activity.</p>
+    <!-- Main Content -->
+    <div id="layout" class="pure-g">
+        <div class="content pure-u-1">
 
-    <!-- Distribution of YouTube Categories -->
-    <h2>Distribution of YouTube Categories</h2>
-    <p>The donut chart below illustrates the distribution of categories among the top 955 YouTube channels, grouping smaller categories into an 'Others' section.</p>
-    <div id="category-donut-chart" class="chart-container"></div>
+            <!-- YouTube Overview Section -->
+            <section class="topic topic-description">
+                <header class="topic-header">
+                    <h1 style="font-family: 'Oswald', sans-serif; font-size: 48px; color: red;">YouTube 2023 Unwrapped
+                    </h1>
+                </header>
+                <div class="pure-g">
+                    <div class="pure-u-md-1-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            Welcome to the Global YouTube Statistics 2023 visualization. This interactive webpage
+                            explores the dynamic world of YouTube, the largest video-sharing platform on the internet.
+                            By analyzing data from the most subscribed channels, upload frequencies, top earners, and
+                            more, this project offers a deep dive into YouTube's influence across different categories
+                            and countries. You can discover the leading creators by subscriber count, earnings, and
+                            total video views, while a dynamic map visualizes where these top YouTubers come from,
+                            giving a global perspective on the platform's reach. The visualizations also highlight how
+                            different content categories perform, revealing trends in entertainment, education, and
+                            beyond.
+                        </p>
+                    </div>
+                    <div class="pure-u-md-4-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            The webpage is designed with interactivity in mind, allowing you to hover, click, and filter
+                            data to uncover detailed insights. This makes it easy to explore specific patterns and
+                            trends at your own pace. As you navigate through the data, you'll gain insights into the
+                            influence of top creators, examining which channels dominate in terms of engagement and
+                            reach. Additionally, you can explore the relationship between earnings, upload frequency,
+                            and subscriber growth, as well as how YouTube's most popular creators vary by region. Dive
+                            in and see how content creators have shaped the platform into a global powerhouse for
+                            entertainment and education!
+                        </p>
+                    </div>
+                    <div class="pure-u-md-1-24"></div>
+                </div>
+            </section>
 
-    <!-- Top YouTube Channels -->
-    <h2>Top YouTube Channels</h2>
-    <p>The bar chart below highlights the top YouTube channels by subscriber count. Use the filter to control the number of channels displayed.</p>
-    <div id="top-channels-bar-chart" class="chart-container"></div>
+            <!-- Distribution of YouTube Categories -->
+            <section class="topic" id="categories">
+                <header class="topic-header">
+                    <h2 class="topic-title">YouTube Categories Breakdown: Visualizing Content Diversity with a Donut Chart</h2>
+                </header>
+                <div id="category-donut-chart"></div>
+                <div class="pure-g">
+                    <div class="pure-u-md-1-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            The donut chart of YouTube content categories offers a clear view of how diverse the
+                            platform's content has become, while also highlighting the dominance of certain types of
+                            media. At the forefront, Entertainment stands out, representing a significant portion of the
+                            content on YouTube. This isn't surprising, given the universal appeal of entertainment
+                            content like movie clips, vlogs, and celebrity interviews. The vast reach of entertainment
+                            speaks to YouTube's evolution from a platform dominated by niche creators to one that rivals
+                            mainstream media outlets.
+                        </p>
+                    </div>
+                    <div class="pure-u-md-4-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            Music follows closely behind, a testament to YouTube's role as one of the biggest hubs for
+                            music discovery and consumption. In recent years, music videos have frequently topped the
+                            charts for the most-viewed content. Then there's Gaming, another massive category with its
+                            own loyal audience. Gaming's popularity can be attributed to its highly engaged communities,
+                            e-sports events, and the rise of game streamers who build personal connections with their
+                            audience. Altogether, the chart reflects YouTube's diverse and growing content library,
+                            where entertainment, music, and gaming drive much of the traffic, while other categories
+                            like People & Blogs provide a personal and relatable side to content creation.
+                        </p>
+                    </div>
+                    <div class="pure-u-md-1-24"></div>
+                </div>
+            </section>
 
-    <!-- Global Distribution of Subscribers -->
-    <h2>Global Distribution of Subscribers</h2>
-    <p>The map below shows the global distribution of YouTube subscribers, using proportional symbols to represent the number of subscribers per region.</p>
-    <div id="global-subscribers-map" class="chart-container"></div>
+            <!-- Top YouTube Channels -->
+            <section class="topic" id="top-channels">
+                <header class="topic-header">
+                    <h2 class="topic-title">Leading YouTube Channels</h2>
+                    <p class="topic-meta">Subscriber Count Insights</p>
+                </header>
+                <div id="top-channels-bar-chart"></div>
+                <div class="pure-g">
+                    <div class="pure-u-md-1-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            The bar graph highlights significant trends in the YouTube landscape, illustrating how
+                            certain channels consistently secure top rankings in subscriber counts and video views. One
+                            notable aspect is the presence of channels like "YouTube Movies" "Music" and
+                            "Gaming" which are owned and operated by YouTube itself. These channels often
+                            display subscriber and view counts reflecting zero for individual videos, as their content
+                            is not created in the traditional sense but aggregated and curated. However, their
+                            prominence underscores the platform's strategic focus on diverse content offerings that
+                            cater to various audience segments, enhancing YouTube's overall value proposition.
+                        </p>
+                    </div>
+                    <div class="pure-u-md-4-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            The leading YouTube channels typically thrive on several factors: consistency in posting,
+                            high-quality content, and a broad global appeal. Successful influencers and creators
+                            understand the importance of regular uploads and audience engagement, allowing them to
+                            cultivate dedicated follower bases. Their ability to adapt to evolving viewer preferences
+                            and trends contributes to their sustained popularity. As YouTube continues to evolve,
+                            influencers have emerged as key figures in entertainment and advertising, with brands
+                            increasingly leveraging their reach to connect with audiences in authentic and relatable
+                            ways. This bar graph serves as a starting point for a deeper exploration into the offerings
+                            of these top channels, ranging from entertainment and education to gaming, illuminating the
+                            diverse content landscape that keeps viewers engaged and coming back for more.
+                        </p>
+                    </div>
+                    <div class="pure-u-md-1-24"></div>
+                </div>
+            </section>
 
-    <!-- Top Earning YouTubers -->
-    <h2>Top Earning YouTubers in 2023</h2>
-    <p>This lollipop chart shows the top-earning YouTubers and their revenue in 2023.</p>
-    <div id="top-earning-lollipop-chart" class="chart-container"></div>
+            <!-- Global Distribution of Subscribers -->
+            <section class="topic" id="global-reach">
+                <header class="topic-header">
+                    <h2 class="topic-title">Global Reach of YouTube</h2>
+                    <p class="topic-meta">Proportional Symbol Map of Subscribers</p>
+                </header>
+                <div id="global-subscribers-map"></div>
+                <div class="pure-g">
+                    <div class="pure-u-md-1-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            The proportional symbol map of YouTube subscribers vividly illustrates the platform's global
+                            reach, showcasing the countries where it enjoys the most popularity. Notably, countries like
+                            the United States, India, and Brazil emerge prominently on the map, reflecting their large
+                            subscriber bases. For instance, India is marked with a substantial symbol, indicating a vast
+                            number of subscribers. This trend can be attributed to several factors, including the rapid
+                            growth of internet accessibility, particularly in urban areas, and the increasing
+                            availability of affordable smartphones. As more individuals gain access to the internet,
+                            platforms like YouTube become vital sources of entertainment, education, and information.
+                        </p>
+                    </div>
+                    <div class="pure-u-md-4-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            Additionally, content localization plays a crucial role in YouTube's expansion in regions
+                            like India. Creators often produce videos in local languages, making the platform more
+                            relatable and accessible to diverse demographics. The rise of regional content creators has
+                            further fueled this growth, as viewers are drawn to relatable content that resonates with
+                            their cultural context. This combination of increased internet access, localized content,
+                            and a vibrant creator community contributes to YouTube's prominence in these countries,
+                            positioning it as a leading platform for entertainment and information on a global scale. As
+                            the map illustrates, YouTube's influence continues to grow, reflecting the diverse and
+                            interconnected nature of today's digital landscape.
+                        </p>
+                    </div>
+                    <div class="pure-u-md-1-24"></div>
+                </div>
+            </section>
 
-    <!-- Upload Frequency -->
-    <h2>Upload Frequency of Top Channels</h2>
-    <p>The histogram below displays the distribution of upload frequencies among top YouTube channels.</p>
-    <div id="upload-freq-histogram" class="chart-container"></div>
+            <!-- Top Earning YouTubers -->
+            <section class="topic" id="top-earning">
+                <header class="topic-header">
+                    <h2 class="topic-title">Economic Impact of YouTube Creators</h2>
+                    <p class="topic-meta">Economic Impact of YouTube Creators: Top Earning YouTubers of 2023</p>
+                </header>
+                <div id="top-earning-lollipop-chart"></div>
+                <div class="pure-g">
+                    <div class="pure-u-md-1-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            The lollipop chart visually represents the economics of YouTube, illustrating how this
+                            platform has birthed an entirely new industry for content creators. The data highlights top
+                            earners, with MrBeast leading the pack at an impressive $82 million in revenue, followed
+                            closely by Rhett & Link and Ryan Kaji, each pulling in $35 million. These figures underscore
+                            the vast financial opportunities available to creators, primarily driven by ad revenue,
+                            sponsorships, and merchandise sales. The emergence of such substantial incomes for
+                            individuals who produce content from their homes starkly contrasts with traditional media,
+                            where revenues are often concentrated within established networks and studios.
+                        </p>
+                    </div>
+                    <div class="pure-u-md-4-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            Creators leverage various revenue streams on YouTube, including advertisement placements
+                            before and during videos, lucrative brand partnerships, and merchandise linked to their
+                            personal brands. This multifaceted approach allows them to diversify their income beyond
+                            what traditional media might offer, fostering a more accessible environment for aspiring
+                            content creators. For instance, many top creators have developed their merchandise lines,
+                            capitalizing on their fanbase's loyalty and engagement. This shift not only highlights the
+                            profitability of YouTube as a platform but also exemplifies how the creators can exert more
+                            control over their careers, transitioning from content producers to influential
+                            entrepreneurs in the digital landscape. The financial success of these creators emphasizes
+                            the transformative impact of YouTube on the entertainment industry, opening doors for new
+                            talent and innovative business models.
+                        </p>
+                    </div>
+                    <div class="pure-u-md-1-24"></div>
+                </div>
+            </section>
 
-    <!-- YouTube Monthly Active Users -->
-    <h2>YouTube Monthly Active Users (2010-2024)</h2>
-    <p>This line graph tracks the number of YouTube monthly active users from 2010 to 2024.</p>
-    <div id="active-users-line-graph" class="chart-container"></div>
+            <!-- Upload Frequency -->
+            <section class="topic" id="upload-frequency">
+                <header class="topic-header">
+                    <h2 class="topic-title">Content Creation Trends</h2>
+                    <p class="topic-meta">Content Creation Trends: Analyzing Upload Frequencies on YouTube</p>
+                </header>
+                <div id="upload-freq-histogram"></div>
+                <div class="pure-g">
+                    <div class="pure-u-md-1-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            The histogram showcasing upload frequencies highlights the critical role of consistency in
+                            the success of content creators on YouTube. Frequent uploads not only keep audiences engaged
+                            but also signal to the YouTube algorithm that a channel is active, which can enhance its
+                            visibility and reach. Top channels, such as MrBeast and Markiplier, have demonstrated that a
+                            regular posting schedule contributes significantly to their substantial subscriber counts
+                            and views. This consistency is crucial in building a loyal audience base that anticipates
+                            new content, creating a cycle of engagement that fosters growth.
+                        </p>
+                    </div>
+                    <div class="pure-u-md-4-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            YouTube's algorithm rewards channels that frequently upload content by promoting their
+                            videos in search results and recommendations, leading to greater exposure. Creators often
+                            employ strategies to manage their content production effectively, such as batch filming or
+                            planning content calendars, allowing them to maintain a steady stream of uploads. By
+                            balancing quality and frequency, successful creators ensure they stay relevant in a
+                            fast-paced digital landscape. This blend of consistency and strategic planning not only
+                            maximizes their reach but also enhances their ability to monetize their content, further
+                            solidifying their status as key figures in the entertainment industry. Overall, the
+                            histogram serves as a testament to how vital consistent content production is for creators
+                            aiming to thrive on the platform.
+                        </p>
+                    </div>
+                    <div class="pure-u-md-1-24"></div>
+                </div>
+            </section>
+
+            <!-- YouTube Yearly Active Users -->
+            <section class="topic" id="active-users">
+                <header class="topic-header">
+                    <h2 class="topic-title">Growth in YouTube Active Users</h2>
+                    <p class="topic-meta">Growth in YouTube Active Users: Trends from 2010 to 2024</p>
+                </header>
+                <div id="active-users-line-graph"></div>
+                <div class="pure-g">
+                    <div class="pure-u-md-1-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            The line chart depicting YouTube's monthly active users vividly illustrates the platform's
+                            explosive growth over the years, culminating in a staggering 2.7 billion users by 2023.
+                            Significant milestones mark this journey, such as YouTube's first reach of 1 billion monthly
+                            active users in 2013, which signified its emergence as a dominant force in digital media.
+                            Key events, like T-Series becoming the first channel to hit 100 million subscribers in 2019,
+                            not only spotlighted individual creators but also underscored YouTube's vast appeal across
+                            diverse audiences. The launch of YouTube TV in 2017 expanded the platform's reach into live
+                            streaming, further enriching the content landscape and attracting new users seeking
+                            comprehensive entertainment options.
+                        </p>
+                    </div>
+                    <div class="pure-u-md-4-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            Several factors have driven this impressive user growth, including increased mobile device
+                            usage and global internet accessibility. The COVID-19 pandemic in 2020 significantly
+                            impacted user engagement as people turned to online platforms for entertainment and
+                            connection during lockdowns, resulting in a surge in viewership. Looking ahead, future
+                            trends suggest that the upward trajectory will continue, fueled by ongoing improvements in
+                            mobile technology and internet infrastructure, particularly in developing regions. As more
+                            people gain access to the internet, platforms like YouTube will likely see increased user
+                            engagement and content diversity. This growth potential signals an exciting future for
+                            YouTube as it evolves into a multifaceted entertainment hub, shaping the way audiences
+                            consume and interact with digital content.
+                        </p>
+                    </div>
+                    <div class="pure-u-md-1-24"></div>
+                </div>
+            </section>
+
+            <!-- Summary -->
+            <section class="topic" id="active-users">
+                <header class="topic-header">
+                    <h2 class="topic-title">Conclusion</h2>
+                    <p class="topic-meta">Conclusion: The Transformative Impact of YouTube on Digital Media</p>
+                </header>
+                <div class="pure-g">
+                    <div class="pure-u-md-1-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            YouTube's evolution into a powerful platform with a global reach exemplifies its profound
+                            impact on
+                            digital media and entertainment. Over the years, it has transformed from a simple
+                            video-sharing site
+                            into a cultural phenomenon, enabling diverse voices and talents to emerge and thrive. The
+                            data
+                            presented in this project not only highlights impressive user growth and revenue figures but
+                            also
+                            reflects the cultural significance of YouTube as a vital source of entertainment, education,
+                            and
+                            influence in our daily lives. With a wide array of content that spans genres—from gaming to
+                            educational tutorials and vlogs—YouTube has become an integral part of modern culture,
+                            shaping how
+                            audiences engage with media and each other.
+                        </p>
+                    </div>
+                    <div class="pure-u-md-4-24"></div>
+                    <div class="pure-u-md-9-24">
+                        <p>
+                            As we look to the future, YouTube's influence is likely to expand further, driven by
+                            advancements in
+                            technology and an ever-growing global audience. The platform's ability to adapt and innovate
+                            in
+                            response to viewer preferences will ensure its continued relevance in the rapidly evolving
+                            landscape
+                            of digital content. Ultimately, the data we analyzed paints a compelling picture of a
+                            platform that
+                            is not just about numbers, but about connection, creativity, and cultural impact.
+                        </p>
+                    </div>
+                    <div class="pure-u-md-1-24"></div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Sources -->
+    <section class="topic sources" id="active-users">
+        <div class="pure-g">
+            <div class="pure-u-md-1-24"></div>
+            <div class="pure-u-md-9-24">
+                <p>Designed by Abdeali Morbiwala.</p>
+                <p>Data provided by Youtube and other sources.</p>
+                <p>Feel free to share and adapt this visualization with appropriate credit!</p>
+            </div>
+            <div class="pure-u-md-4-24"></div>
+            <div class="pure-u-md-9-24">
+                <h3>Sources:</h3>
+                <p><a href="https://docs.google.com/document/d/1nly0i1MnkrveNwk_cjTVpcGxom-UQxh-09lCZbg2OrA/edit?usp=sharing"
+                        target="_blank">Google Document</a></p>
+            </div>
+            <div class="pure-u-md-1-24"></div>
+        </div>
+    </section>
 
     <!-- Embedding the charts using Vega-Lite JSON files -->
-    <script>
-        // Embed donut chart
-        vegaEmbed('#category-donut-chart', 'js/topCategories_donutChart.json').catch(console.warn);
-
-        // Embed bar chart
-        vegaEmbed('#top-channels-bar-chart', 'js/topChannels_barGraph.json').catch(console.warn);
-
-        // Embed proportional symbol map
-        vegaEmbed('#global-subscribers-map', 'js/topCount_subs_map.json').catch(console.warn);
-
-        // Embed lollipop chart
-        vegaEmbed('#top-earning-lollipop-chart', 'js/topEarning_lollipopChart.json').catch(console.warn);
-
-        // Embed upload frequency histogram
-        vegaEmbed('#upload-freq-histogram', 'js/uploadFreq_histogram.json').catch(console.warn);
-
-        // Embed line graph for monthly active users
-        vegaEmbed('#active-users-line-graph', 'js/activeUsers_lineGraph.json').catch(console.warn);
-
-        // You can also add JavaScript to handle your sliders if needed
-    </script>
+    <script src="js/chartsEmbed.js"></script>
 
 </body>
+
 </html>

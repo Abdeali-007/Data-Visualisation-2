@@ -1,17 +1,33 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": "container",
-  "height": "container",
-  "projection": {"type": "equalEarth"},
+  "height": 600,
+  "width": 1400,
+  "projection": {
+    "type": "equalEarth"
+  },
   "layer": [
     {
-      "data": {"graticule": {"step": [30, 30]}},
-      "mark": {"type": "geoshape", "stroke": "lightgray", "strokeWidth": 0.5}
+      "data": {
+        "graticule": {
+          "step": [
+            30,
+            30
+          ]
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "lightgray",
+        "strokeWidth": 0.5
+      }
     },
     {
       "data": {
         "url": "https://raw.githubusercontent.com/Abdeali-007/Data-Visualisation-2/main/js/ne_110m.json",
-        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+        "format": {
+          "type": "topojson",
+          "feature": "ne_110m_admin_0_countries"
+        }
       },
       "mark": {
         "type": "geoshape",
@@ -23,7 +39,9 @@
     {
       "data": {
         "url": "https://raw.githubusercontent.com/Abdeali-007/Data-Visualisation-2/main/datasets/Global%20YouTube%20Statistics.csv",
-        "format": {"type": "csv"}
+        "format": {
+          "type": "csv"
+        }
       },
       "transform": [
         {
@@ -31,10 +49,22 @@
         },
         {
           "aggregate": [
-            {"op": "sum", "field": "subscribers", "as": "total_subscribers"},
-            {"op": "count", "field": "Youtuber", "as": "channels"}
+            {
+              "op": "sum",
+              "field": "subscribers",
+              "as": "total_subscribers"
+            },
+            {
+              "op": "count",
+              "field": "Youtuber",
+              "as": "channels"
+            }
           ],
-          "groupby": ["Country", "Latitude", "Longitude"]
+          "groupby": [
+            "Country",
+            "Latitude",
+            "Longitude"
+          ]
         }
       ],
       "mark": {
@@ -44,22 +74,46 @@
         "strokeWidth": 1
       },
       "encoding": {
-        "longitude": {"field": "Longitude", "type": "quantitative"},
-        "latitude": {"field": "Latitude", "type": "quantitative"},
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
         "size": {
           "field": "total_subscribers",
           "type": "quantitative",
           "scale": {
             "type": "threshold",
-            "domain": [10000000, 100000000, 500000000, 1000000000, 5000000000],
-            "range": [10, 75, 200, 450, 750, 1250]
+            "domain": [
+              10000000,
+              100000000,
+              500000000,
+              1000000000,
+              5000000000
+            ],
+            "range": [
+              10,
+              75,
+              200,
+              450,
+              750,
+              1250
+            ]
           },
-          "legend": {"title": "Total Subscribers", "format": ".1s"}
+          "legend": {
+            "title": "Total Subscribers",
+            "format": ".1s"
+          }
         },
         "color": {
           "field": "channels",
           "type": "quantitative",
-          "scale": {"scheme": "reds"},
+          "scale": {
+            "scheme": "reds"
+          },
           "legend": {
             "title": "Number of Top YouTube Channels",
             "labelLimit": 300,
@@ -67,8 +121,14 @@
           }
         },
         "tooltip": [
-          {"field": "Country", "title": "Country"},
-          {"field": "channels", "title": "Top YouTube Channels"},
+          {
+            "field": "Country",
+            "title": "Country"
+          },
+          {
+            "field": "channels",
+            "title": "Top YouTube Channels"
+          },
           {
             "field": "total_subscribers",
             "title": "Total Subscribers",
@@ -78,5 +138,10 @@
       }
     }
   ],
-  "config": {"view": {"stroke": "transparent"}}
+  "config": {
+    "view": {
+      "stroke": "transparent"
+    },
+    "background": "#f9f9f9"
+  }
 }

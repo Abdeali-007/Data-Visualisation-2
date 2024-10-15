@@ -1,63 +1,367 @@
-  {
+{
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": "container",
-  "height": "container",
-  "description": "Donut chart showing the distribution of YouTube categories among the top 955 channels, with smaller categories grouped into 'Others'",
+  "height": 600,
+  "width": 1500,
+  "description": "Donut chart showing the percentage distribution of YouTube categories among the top 955 channels, with smaller categories grouped into 'Others'.",
   "data": {
     "url": "https://raw.githubusercontent.com/Abdeali-007/Data-Visualisation-2/main/datasets/Global%20YouTube%20Statistics.csv",
-    "format": {"type": "csv"}
+    "format": {
+      "type": "csv"
+    }
   },
   "transform": [
-    {"filter": "datum.category != null && datum.category != 'nan'"},
-    {"aggregate": [{"op": "count", "as": "count"}], "groupby": ["category"]},
     {
-      "window": [{"op": "rank", "as": "rank"}],
-      "sort": [{"field": "count", "order": "descending"}]
+      "filter": "datum.category != null && datum.category != 'nan'"
     },
     {
-      "calculate": "datum.rank > category_limit ? 'Others' : datum.category",
+      "aggregate": [
+        {
+          "op": "count",
+          "as": "count"
+        }
+      ],
+      "groupby": [
+        "category"
+      ]
+    },
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "rank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "count",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "calculate": "datum.rank > 5 ? 'Others' : datum.category",
       "as": "category_grouped"
     },
     {
-      "aggregate": [{"op": "sum", "field": "count", "as": "count"}],
-      "groupby": ["category_grouped"]
+      "aggregate": [
+        {
+          "op": "sum",
+          "field": "count",
+          "as": "count"
+        }
+      ],
+      "groupby": [
+        "category_grouped"
+      ]
     },
     {
-      "window": [{"op": "rank", "as": "order_rank"}],
-      "sort": [{"field": "count", "order": "descending"}]
+      "calculate": "(datum.count / 955) * 100",
+      "as": "percentage"
     }
   ],
-  "params": [
-    {
-      "name": "category_limit",
-      "value": 7,
-      "bind": {
-        "input": "range",
-        "min": 1,
-        "max": 18,
-        "step": 1,
-        "name": "Number of Categories to Display: "
-      }
-    }
-  ],
-  "mark": {"type": "arc", "innerRadius": 150},
   "encoding": {
-    "theta": {"field": "count", "type": "quantitative"},
+    "theta": {
+      "field": "percentage",
+      "type": "quantitative",
+      "stack": true
+    },
     "color": {
       "field": "category_grouped",
       "type": "nominal",
-      "legend": {"title": "Category"}
-    },
-    "order": {
-      "field": "order_rank",
-      "type": "quantitative",
-      "sort": "descending"
-    },
-    "tooltip": [
-      {"field": "category_grouped", "title": "Category"},
-      {"field": "count", "title": "Channel Count"}
-    ]
+      "title": "Category",
+      "scale": {
+        "range": [
+          "#8dd3c7",
+          "#ffffb3",
+          "#bebada",
+          "#b3de69",
+          "#80b1d3",
+          "#fdb462"
+        ]
+      },
+      "legend": null
+    }
   },
-  "view": {"stroke": null},
-  "config": {}
+  "layer": [
+    {
+      "mark": {
+        "type": "arc",
+        "outerRadius": 190,
+        "innerRadius": 110
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "category_grouped",
+            "type": "nominal",
+            "title": "Category"
+          },
+          {
+            "field": "percentage",
+            "type": "quantitative",
+            "title": "Percentage of Channels",
+            "format": ".2f"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "radius": 150,
+        "dy": 10
+      },
+      "encoding": {
+        "text": {
+          "field": "category_grouped",
+          "type": "nominal"
+        },
+        "color": {
+          "value": "black"
+        },
+        "size": {
+          "value": 10
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rect",
+        "fill": "#f0f0f0",
+        "stroke": "#000",
+        "strokeWidth": 1,
+        "cornerRadius": 5,
+        "x": 1170,
+        "y": 215,
+        "width": 375,
+        "height": 60
+      },
+      "encoding": {}
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 1000,
+        "y": 200,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": "Entertainment leads the platform due to its universal appeal."
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 1000,
+        "y": 215,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": "YouTube has become a go-to platform for TV shows, web series"
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 1000,
+        "y": 230,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": "and celebrity channels, which engage a wide, global audience."
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rect",
+        "fill": "#f0f0f0",
+        "stroke": "#000",
+        "strokeWidth": 1,
+        "cornerRadius": 5,
+        "x": 415,
+        "y": 497,
+        "width": 300,
+        "height": 60
+      },
+      "encoding": {}
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 280,
+        "y": 480,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": "Music's prominence reflects YouTube's roots."
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 280,
+        "y": 495,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": "From music videos to concert streams, the platform"
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 280,
+        "y": 510,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": "has become a key player in the music industry."
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rect",
+        "fill": "#f0f0f0",
+        "stroke": "#000",
+        "strokeWidth": 1,
+        "cornerRadius": 5,
+        "x": 340,
+        "y": 247,
+        "width": 250,
+        "height": 60
+      },
+      "encoding": {}
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 230,
+        "y": 230,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": "'Others' include niche topics like education"
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 230,
+        "y": 245,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": "and tech, reflecting YouTube's diversity."
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rect",
+        "fill": "#f0f0f0",
+        "stroke": "#000",
+        "strokeWidth": 1,
+        "cornerRadius": 5,
+        "x": 1140,
+        "y": 497,
+        "width": 310,
+        "height": 60
+      },
+      "encoding": {}
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 1000,
+        "y": 480,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": "Gaming content has surged due to live streaming and"
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 1000,
+        "y": 495,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": "eSports, making YouTube a hub for gamers."
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "#f9f9f9"
+  }
 }

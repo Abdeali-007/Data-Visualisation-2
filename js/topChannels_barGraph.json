@@ -1,13 +1,15 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": "container",
-  "height": "container",
+  "height": 600,
+  "width": 1400,
   "description": "A bar chart showing the top YouTube channels with a filter to control how many channels are displayed.",
   "data": {
-    "url": "https://raw.githubusercontent.com/Abdeali-007/Data-Visualisation-2/main/datasets/Global%20YouTube%20Statistics.csv"
+    "url": "https://raw.githubusercontent.com/Abdeali-007/FIT3179-WK10-HW/main/Global%20YouTube%20Statistics.csv"
   },
   "transform": [
-    {"filter": "datum.rank <= slider_rank"},
+    {
+      "filter": "datum.rank <= slider_rank"
+    },
     {
       "calculate": "datum.Country == 'nan' ? 'Unknown' : datum.Country",
       "as": "Country_fixed"
@@ -34,67 +36,171 @@
       }
     }
   ],
-  "mark": "bar",
-  "encoding": {
-    "x": {
-      "field": "Youtuber",
-      "type": "nominal",
-      "title": "YouTube Channel",
-      "sort": "-y",
-      "axis": {"labelAngle": -45}
-    },
-    "y": {
-      "field": "subscribers",
-      "type": "quantitative",
-      "title": "Subscribers",
-      "axis": {"format": ",d"}
-    },
-    "color": {
-      "field": "Country_fixed",
-      "type": "nominal",
-      "title": "Country",
-      "scale": {
-        "domain": [
-          "Argentina",
-          "Brazil",
-          "Canada",
-          "Chile",
-          "India",
-          "Japan",
-          "Russia",
-          "South Korea",
-          "United Kingdom",
-          "United States",
-          "Unknown"
-        ],
-        "range": [
-          "#a6cee3",
-          "#1f78b4",
-          "#b2df8a",
-          "#33a02c",
-          "#fb9a99",
-          "#e31a1c",
-          "#fdbf6f",
-          "#ff7f00",
-          "#cab2d6",
-          "#6a3d9a",
-          "#ffff99"
+  "layer": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "x": {
+          "field": "Youtuber",
+          "type": "nominal",
+          "title": "YouTube Channel",
+          "sort": {
+            "field": "rank",
+            "order": "ascending"
+          },
+          "axis": {
+            "labelAngle": -45
+          }
+        },
+        "y": {
+          "field": "subscribers",
+          "type": "quantitative",
+          "title": "Subscribers",
+          "axis": {
+            "format": ",d",
+            "grid": false
+          }
+        },
+        "color": {
+          "field": "Country_fixed",
+          "type": "nominal",
+          "title": "Country",
+          "scale": {
+            "domain": ["United States", "India", "Japan", "United Kingdom", "Russia", "South Korea", "Brazil", "Canada", "Unknown", "Argentina", "Chile"],
+            "range": ["#a6cee399","#1f78b499","#b2df8a99","#33a02c99","#fb9a9999","#fdbf6f99","#ff7f0099","#cab2d699","#6a3d9a99","#ffff9999","#b1592899"]
+          } 
+        },
+        "tooltip": [
+          {
+            "field": "rank",
+            "type": "nominal",
+            "title": "Rank"
+          },
+          {
+            "field": "Youtuber",
+            "type": "nominal",
+            "title": "Channel"
+          },
+          {
+            "field": "subscribers",
+            "type": "quantitative",
+            "title": "Subscribers",
+            "format": ",d"
+          },
+          {
+            "field": "Country_fixed",
+            "type": "nominal",
+            "title": "Country"
+          },
+          {
+            "field": "views_fixed",
+            "type": "nominal",
+            "title": "Video Views"
+          },
+          {
+            "field": "uploads_fixed",
+            "type": "nominal",
+            "title": "Uploads"
+          }
         ]
       }
     },
-    "tooltip": [
-      {"field": "rank", "type": "nominal", "title": "Rank"},
-      {"field": "Youtuber", "type": "nominal", "title": "Channel"},
-      {
-        "field": "subscribers",
-        "type": "quantitative",
-        "title": "Subscribers",
-        "format": ",d"
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "bottom",
+        "dy": -5
       },
-      {"field": "Country_fixed", "type": "nominal", "title": "Country"},
-      {"field": "views_fixed", "type": "nominal", "title": "Video Views"},
-      {"field": "uploads_fixed", "type": "nominal", "title": "Uploads"}
-    ]
-  },
-  "config": {}
+      "encoding": {
+        "x": {
+          "field": "Youtuber",
+          "type": "nominal",
+          "sort": {
+            "field": "rank",
+            "order": "ascending"
+          }
+        },
+        "y": {
+          "field": "subscribers",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "rank",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "rect",
+        "fill": "#f0f0f0",
+        "stroke": "#000",
+        "strokeWidth": 1,
+        "cornerRadius": 5,
+        "x": 1145,
+        "y": 97,
+        "width": 315,
+        "height": 60
+      },
+      "encoding": {}
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 1000,
+        "y": 80,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": "The majority of the top YouTube channels originate from"
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 1000,
+        "y": 95,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": " the United States and India, highlighting the significant"
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "x": 1000,
+        "y": 110,
+        "fontSize": 12,
+        "fontWeight": "normal"
+      },
+      "encoding": {
+        "text": {
+          "value": "influence these countries have on the platform."
+        },
+        "color": {
+          "value": "black"
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "#f9f9f9"
+  }
 }

@@ -1,29 +1,317 @@
-body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
-h1, h2 {
+/*
+ * -- BASE STYLES --
+ */
+body {
+    line-height: 1.7em;
+    color: #7f8c8d;
+    font-size: 13px;
+    font-family: 'Roboto', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label {
+    color: #34495e;
+}
+
+.pure-img-responsive {
+    max-width: 100%;
+    height: auto;
+}
+
+/*
+ * -- LAYOUT STYLES --
+ */
+.l-box {
+    padding: 1em;
+}
+
+.l-box-lrg {
+    padding: 2em;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.is-center {
+    text-align: center;
+}
+
+/*
+ * -- PURE FORM STYLES --
+ */
+.pure-form label {
+    margin: 1em 0 0;
+    font-weight: bold;
+    font-size: 100%;
+}
+
+.pure-form input[type] {
+    border: 2px solid #ddd;
+    box-shadow: none;
+    font-size: 100%;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+/*
+ * -- PURE BUTTON STYLES --
+ */
+.pure-button {
+    background-color: #1f8dd6;
+    color: white;
+    padding: 0.5em 2em;
+    border-radius: 5px;
+}
+
+a.pure-button-primary {
+    background: white;
+    color: #1f8dd6;
+    border-radius: 5px;
+    font-size: 120%;
+}
+
+/*
+ * -- MENU STYLES --
+ */
+.home-menu {
+    padding: 0.5em;
+    text-align: center;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.10);
+    background: #2d3e50;
+    /* dark blue background */
+}
+
+.pure-menu.pure-menu-fixed {
+    border-bottom: none;
+    z-index: 4;
+}
+
+.home-menu .pure-menu-heading {
+    color: white;
+    /* Change heading color to white */
+    font-weight: 400;
+    font-size: 120%;
+}
+
+.home-menu .pure-menu-selected a {
+    color: white;
+    /* Ensure selected menu item is white */
+}
+
+.home-menu a {
+    color: #ffffff;
+    /* Change link color to white for better contrast */
+}
+
+.home-menu li a:hover,
+.home-menu li a:focus {
+    background: none;
+    border: none;
+    color: #AECFE5;
+    /* Lighter shade for hover effect */
+}
+
+/*
+ * -- SPLASH STYLES --
+ */
+.splash-container {
+    background: #1f8dd6;
+    z-index: 1;
+    overflow: hidden;
+    width: 100%;
+    height: 88%;
+    top: 0;
+    left: 0;
+    position: fixed !important;
+}
+
+.splash {
+    width: 80%;
+    height: 50%;
+    margin: auto;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.splash-head {
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    border: 3px solid white;
+    padding: 1em 1.6em;
+    font-weight: 100;
+    border-radius: 5px;
+    line-height: 1em;
+}
+
+.splash-subhead {
+    color: white;
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+}
+
+/*
+ * -- CONTENT STYLES --
+ */
+.content-wrapper {
+    position: absolute;
+    top: 87%;
+    width: 100%;
+    min-height: 12%;
+    z-index: 2;
+    background: white;
+}
+
+.content {
+    padding: 1em 1em 3em;
+}
+
+.content-head {
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 2em 0 1em;
+}
+
+.content-head-ribbon {
+    color: white;
+}
+
+.content-subhead {
+    color: #1f8dd6;
+}
+
+.content-subhead i {
+    margin-right: 7px;
+}
+
+.ribbon {
+    background: #2d3e50;
+    color: #aaa;
+}
+
+.footer {
+    background: #111;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+}
+
+/*
+ * -- TABLET (AND UP) MEDIA QUERIES --
+ */
+@media (min-width: 48em) {
+    body {
+        font-size: 16px;
+    }
+
+    .home-menu {
+        text-align: left;
+        background: #ff9292;
+    }
+
+    .home-menu ul {
+        float: right;
+    }
+
+    .splash {
+        width: 50%;
+        height: 50%;
+    }
+
+    .splash-head {
+        font-size: 250%;
+    }
+
+    .l-box-lrg {
+        border: none;
+    }
+}
+
+/*
+ * -- DESKTOP (AND UP) MEDIA QUERIES --
+ */
+@media (min-width: 78em) {
+    .splash-head {
+        font-size: 300%;
+    }
+}
+
+/*
+ * -- CUSTOM STYLES --
+ */
+h1 {
+    text-align: center;
+    margin: 20px;
+    font-size: 2.5em;
+}
+
+h2 {
+    font-size: 1.8em;
     color: #333;
 }
 
 .chart-container {
     width: 100%;
-    height: 450px; /* Adjust height as needed */
-    margin-bottom: 40px; /* Space between charts */
+    height: 450px;
+    margin-bottom: 40px;
 }
 
-.slider-container {
-    margin-bottom: 20px;
+.header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+    padding: 20px;
 }
 
-.slider-container label {
-    margin-right: 10px;
+.topic {
+    padding: 30px 20px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
 }
 
-/* Make sure the charts are responsive */
-@media only screen and (max-width: 600px) {
-    .chart-container {
-        height: 300px; /* Smaller height for mobile */
-    }
+.topic-header {
+    margin-bottom: 10px;
+}
+
+.topic-title {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: #ff0000bb;
+}
+
+.topic-meta {
+    font-size: 1em;
+    color: #888;
+}
+
+.topic-description {
+    font-size: 1.1em;
+    color: #555;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.sources {
+    font-size: 0.9em; /* Slightly smaller font size */
+    color: #666; /* Gray color for less emphasis */
+    margin-top: 20px; /* Space above the section */
+    margin-bottom: 20px; /* Space below the section */
 }

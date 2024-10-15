@@ -1,33 +1,134 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "description": "A line graph showing the number of YouTube monthly active users from 2010 to 2024.",
-  "width": "container",
-  "height": "container",
+  "description": "A line graph showing the number of YouTube monthly active users from 2010 to 2024 with annotations for key events.",
+  "height": 600,
+  "width": 1500,
   "data": {
     "url": "https://raw.githubusercontent.com/Abdeali-007/Data-Visualisation-2/main/datasets/Youtube%20Users%202010-2024.csv",
-    "format": {"type": "csv"}
+    "format": {
+      "type": "csv"
+    }
   },
-  "mark": {"type": "line", "color": "red"},
-  "encoding": {
-    "x": {
-      "field": "Year",
-      "type": "temporal",
-      "title": "Year",
-      "axis": {"format": "%Y"}
-    },
-    "y": {
-      "field": "YouTube Monthly Active Users (in billions)",
-      "type": "quantitative",
-      "title": "Monthly Active Users (in billions)"
-    },
-    "tooltip": [
-      {"field": "Year", "title": "Year", "type": "temporal"},
-      {
-        "field": "YouTube Monthly Active Users (in billions)",
-        "title": "Monthly Active Users (in billions)",
-        "type": "quantitative"
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "color": "#ff000099"
+      },
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "temporal",
+          "title": "Year",
+          "timeUnit": "year"
+        },
+        "y": {
+          "field": "YouTube Monthly Active Users (in billions)",
+          "type": "quantitative",
+          "title": "Monthly Active Users (in billions)"
+        }
       }
-    ]
-  },
-  "config": {}
+    },
+    {
+      "mark": {
+        "type": "point",
+        "color": "black",
+        "tooltip": true
+      },
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "temporal"
+        },
+        "y": {
+          "field": "YouTube Monthly Active Users (in billions)",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "Year",
+            "title": "Year",
+            "type": "temporal",
+            "format": "%Y"
+          },
+          {
+            "field": "YouTube Monthly Active Users (in billions)",
+            "title": "Monthly Active Users (in billions)",
+            "type": "quantitative"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "filter": "datum.Annotations != ''"
+        },
+        {
+          "calculate": "length(datum.Annotations) * 5.5",
+          "as": "rect_width"
+        }
+      ],
+      "layer": [
+        {
+          "mark": {
+            "type": "rect",
+            "align": "left",
+            "height": 20,
+            "cornerRadius": 5,
+            "strokeWidth": 1,
+            "fill": "#f0f0f0",
+            "stroke": "black",
+            "width": {
+              "signal": "datum.rect_width"
+            }
+          },
+          "encoding": {
+            "x": {
+              "field": "Year",
+              "type": "temporal"
+            },
+            "y": {
+              "field": "YouTube Monthly Active Users (in billions)",
+              "type": "quantitative"
+            },
+            "xOffset": {
+              "value": 5
+            },
+            "yOffset": {
+              "value": 10
+            }
+          }
+        },
+        {
+          "mark": {
+            "type": "text",
+            "align": "left",
+            "dx": 10,
+            "dy": 10
+          },
+          "encoding": {
+            "x": {
+              "field": "Year",
+              "type": "temporal"
+            },
+            "y": {
+              "field": "YouTube Monthly Active Users (in billions)",
+              "type": "quantitative"
+            },
+            "text": {
+              "field": "Annotations",
+              "type": "nominal"
+            },
+            "color": {
+              "value": "black"
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "config": {
+    "background": "#f9f9f9"
+  }
 }
